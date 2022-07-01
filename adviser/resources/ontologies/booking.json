@@ -1,0 +1,88 @@
+{
+    "informable": {
+        "cuisine": [
+            "Bar",
+            "Cafeteria",
+            "Contemporary",
+            "Family",
+            "Fast_Food",
+            "Mexican",
+            "Vietnamese"
+        ],
+        "capacity": [
+            "15",
+            "21",
+            "38",
+            "45",
+            "49",
+            "56",
+            "58",
+            "66",
+            "76",
+            "87",
+            "90",
+            "93",
+            "94",
+            "96",
+            "98"
+        ],
+        "city": [
+            "freiburg",
+            "heidelberg",
+            "karlsruh",
+            "stuttgart",
+            "tubingen"
+        ],
+        "hours": [
+            "00:00-00:00;",
+            "00:00-23:30;",
+            "01:00-23:30;",
+            "07:00-23:30;",
+            "08:00-20:00;",
+            "08:00-23:00;",
+            "08:30-21:00;",
+            "09:00-12:00;",
+            "09:00-19:00;",
+            "09:00-23:30;",
+            "12:30-23:30;"
+        ],
+        "menu": [
+            "all",
+            "breakfast",
+            "dinner",
+            "lunch"
+        ],
+        "name": [
+            "Cabana Huasteca",
+            "Cafeteria y Restaurant El Pacifico",
+            "El Rincon de San Francisco",
+            "Mariscos Tia Licha",
+            "Mcdonalds Parque Tangamanga",
+            "Pollo_Frito_Buenos_Aires",
+            "Restaurant Familiar El Chino",
+            "Restaurante El Reyecito",
+            "Tortas Locas Hipocampo",
+            "crudalia",
+            "puesto de tacos",
+            "tacos de barbacoa enfrente del Tec"
+        ],
+        "rating": [
+            "0",
+            "1",
+            "2"
+        ]
+    },
+    "key": "ID",
+    "requestable": [
+        "name",
+        "city",
+        "cuisine",
+        "rating"
+    ],
+    "system_requestable": [
+        "name",
+        "city",
+        "cuisine",
+        "rating"
+    ]
+}

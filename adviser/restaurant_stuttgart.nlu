@@ -1,0 +1,161 @@
+# general rules
+
+rule hello(): "(\b|^|\s)((H|h)i|(H|h)ello|(H|h)owdy|(H|h)ey|(H|h)elo)"
+rule bye(): "(\b|^|\s)(bye(-)?(bye)?|good(-)?bye|(that'?s?(\s)?(is\s)*all)|that'?s?(\s)?it)($|\s|.)"
+rule deny(): "((\b|^|\s)((N|n)(o)?|(W|w)rong|(I|i)ncorrect|(E|e)rror|(N|n)ope)|(N|n)ot|((N|n)ot\s(true|correct|right)))(\s)?$"
+rule affirm(): "((yes|yeah|(\b|^|\s)ok|(\b|^)OK|okay|sure|^y$|(\b|^)yep(\b|$)|((that's\s?)|that\s?is\s?)?(right|correct|confirm)))(\s)?$"
+rule thanks(): "(?=.*(^(\s)*)(((great|good|awesome|nice|cool)\s)?((that((')?s|\s(is|was))\s(very\s)?helpful)\s)?(thank|thank(s|\syou)(\s(very|so)\smuch)?)(\s(that((')?s|\s(is|was))\s(very\s)?helpful))?|((great|good|awesome|nice|cool)\s)?(that((')?s|\s(is|was))\s(very\s)?helpful)|(great|good|awesome|nice|cool))((\s)*))(?=^(?:(?!bye).)*$).*$"
+rule repeat(): "(\b|^|\s)(repeat((\sthat\s?)|(\sit))?)|(say((\sthat\s?)|(\sit))?\sagain)|(again)"
+rule reqalts(): "(\b|^|\s)((something|anything)\selse)|(different(\sone)*)|(another(\sone)?)|(alternatives*)|(other\soptions*)|((don'*t|do\snot)\s(want|like)\s(that|this)(\sone)*)"
+rule ack(): "{IMPOSSIBLEREGEX()}"
+rule bad(): "{IMPOSSIBLEREGEX()}"
+
+# user informable slots (cuisine, capacity, city, hours, menu, name, rating)
+
+rule inform(name)
+    "{rINFORM()} {synonyms("name", name)}"
+    "{synonyms("name", name)}{WBG()}"
+    "(\\ |^){synonyms("name", name)}(\\ (please|and))*"
+
+rule inform(rating)
+    "{rating}"
+    "{ROUGH()} {rating}"
+    "{HIGHER()} {rating}"
+    "{INFORM()} {rating}"
+    "{LOOKING()} {rating}"
+
+rule inform(cuisine)
+    "{cuisine}"
+    "{LOOKING()} {cuisine}"
+    "{INFORM()} {cuisine}"
+    "(\\ |^){synonyms("R", category)}(\\ (please|and))*"
+
+rule inform(hours)
+    "{hours}"
+    "{LOOKING()} {hours}"
+    "{INFORM()} {hours}"
+    "(\\ |^){synonyms("timings", category)}(\\ (please|and))*"
+
+rule inform(capacity)
+    "{capacity}"
+    "{ROUGH()} {capacity}"
+    "{HIGHER()} {capacity}"
+    "{INFORM()} {capacity}"
+    "{LOOKING()} {capacity}"
+
+rule inform(menu)
+    "{menu}"
+    "{LOOKING()} {menu}"
+    "{INFORM()} {menu}"
+    "(\\ |^){synonyms("food", menu)}(\\ (please|and))*"
+
+rule inform(city)
+    "{city}"
+    "{LOOKING()} {city}"
+    "{INFORM()} {city}"
+    "(\\ |^){synonyms("place", category)}(\\ (please|and))*"
+
+# requestables (name, rating, city, cuisine)
+
+rule request(name)
+    "{REQUEST()} {slot_synonyms("name")}"
+    "{TELL()} {slot_synonyms("name")}"
+    "{LOOKING()} {slot_synonyms("name")}"
+    "{TELL()} {slot_synonyms("name")}"
+    "(?<!{DONTCAREWHAT()})(?<!want ){IT()} {slot_synonyms("name")}"
+    "(?<!{DONTCARE()}){WHAT()} {slot_synonyms("name")}"
+    "{WANT()}.*{slot_synonyms("name")}"
+
+rule request(cuisine)
+    "{REQUEST()} {slot_synonyms("cuisine")}"
+    "{TELL()} {slot_synonyms("cuisine")}"
+    "{LOOKING()} {slot_synonyms("cuisine")}"
+    "{TELL()} {slot_synonyms("cuisine")}"
+    "(?<!{DONTCAREWHAT()})(?<!want ){IT()} {slot_synonyms("cuisine")}"
+    "(?<!{DONTCARE()}){WHAT()} {slot_synonyms("cuisine")}"
+    "{WANT()}.*{slot_synonyms("cuisine")}"
+
+rule request(rating)
+    "{REQUEST()} {slot_synonyms("rating")}"
+    "{TELL()} {slot_synonyms("rating")}"
+    "{LOOKING()} {slot_synonyms("rating")}"
+    "{TELL()} {slot_synonyms("rating")}"
+    "(?<!{DONTCAREWHAT()})(?<!want ){IT()} {slot_synonyms("rating")}"
+    "(?<!{DONTCARE()}){WHAT()} {slot_synonyms("rating")}"
+    "{WANT()}.*{slot_synonyms("rating")}"
+
+rule request(city)
+    "{REQUEST()} {slot_synonyms("city")}"
+    "{TELL()} {slot_synonyms("city")}"
+    "{LOOKING()} {slot_synonyms("city")}"
+    "{TELL()} {slot_synonyms("city")}"
+    "(?<!{DONTCAREWHAT()})(?<!want ){IT()} {slot_synonyms("city")}"
+    "(?<!{DONTCARE()}){WHAT()} {slot_synonyms("city")}"
+    "{WANT()}.*{slot_synonyms("city")}"
+
+# synonyms
+
+function synonyms(slot, value)
+    "{value}"
+    add_if slot = "rating"
+            if value = "1"
+                "1"
+            if value = "2"
+                "2"
+            if value = "0"
+                "0"
+    
+    add_if slot = "cuisine"
+        if value = "Mexican"
+            "(M|m)exica(n)?(\s)?((R|r)estaurant|(F|f)ood|(T|t)ype|(C|c)uisine)?
+        if value = "Family"
+            "(F|f)amily?(\s)?((R|r)estaurant|(F|f)ood|(T|t)ype|(C|c)uisine)?
+        if value = "Bar"
+            "(B|b)ar"
+        if value = "Cafeteria"
+            "(C|c)afe"
+            "(C|c)afeteria(\s)?((R|r)estaurant|(F|f)ood|(T|t)ype|(C|c)uisine)?
+        if value = "Contemporary"
+            "(C|c)ontinental"
+        if value = "Fast_Food"
+            "(F|f)ast?(F|f)ood"
+
+function slot_synonyms(slot)
+    "{IMPOSSIBLEREGEX()}"
+    if slot = "name"
+        "(R|r)ating(s)?"
+        "(P|p)oint(s)?"
+        "((R|r)eview)?(-|\s)?(S|s)core(s)?"
+    if slot = "rating"
+        "(R|r)ating(s)?"
+        "(P|p)oint(s)?"
+        "((R|r)eview)?(-|\s)?(S|s)core(s)?"
+    if slot = "cuisine"
+        "(C|c)cuisine(s)"
+        "(T|t)ype(s)?"
+        "(K|k)ind(s)?"
+
+# inform functions
+function INFORM(): "(.*|^|\s){WANT()}"
+function LOOKING(): "((I\sam\s)?(looking\sfor|finding\s|find\sme))(.*)"
+function INFORM_DONTWANT(): "((((I|i)\s)*(don(')?t\swant))|(I|i)t\s(shouldn(')?t|should\snot|doesn(')?t)\s(have|be))+"
+function INFORM_DONTCARE(): "{DONTCARE()} ((what|which|about)(\s(it'*s*|the))*)+"
+
+# request functions
+function REQUEST(): "(\b|^|\s)(?<!{DONTCARE()})({WHAT()}\s{IT()}|{CYTM()}|{CIG()})"
+function TELL(): "(.*)((can\syou)?(tell|provide|give)\sme)(.*)"
+function CYTM(): "(can\syou\stell\sme\s(the|it'*s|their))"
+function CIG(): "(can\sI\sget\s(the|it'*s|their))"
+
+# general functions
+function WANT(): "(what\sabout|looking\sfor|would\slike\sto|want|have|need|know|like)(\sa(n)?)*(.*)"
+function IT(): "(it'*s*|it\shave|is\sit'*s*|is\s(the|their))(\sfor)*(.*)"
+function ROUGH(): "(.*|^|\s)(around\s|about\s|roughly\s|nearly\s|approximately\s)(.*)"
+function HIGHER(): "(.*|^|\s)(higher\sthan\s|larger\sthan\s|no\sless\sthan\s)(.*)"
+function DONTCARE(): "(((I|i)\s)(D|d)ont\scare)"
+function WHAT(): "((W|w)hat(')?(s)?|(W|w)hich|(D|d)oes|(W|w)here)(\s(its|the))*"
+function DONTCAREWHAT(): "(((I|i)\s)dont\scare\swhat\s)"
+function NEGATE(): "(((I|i)\s)*(don'?t|do\snot|does\snot|does'?nt)\s(care|mind|matter)(\s(about|what))*(\s(the|it'?s*))*)"
+function IMPOSSIBLEREGEX(): "^\b$"
+function WBG(): "(\s((would|seems\sto)\sbe\s(good|nice)($|[^\\?]$)|seems\s(good|nice)($|[^\\?]$)))"
+
