@@ -10,13 +10,22 @@
 Documentation
 =============
 
-    Please see the `documentation <https://digitalphonetics.github.io/adviser/>`_ for more details.
+   Biryani is an open-source single-domain, single-modal dialog system that enables users to retrieve a recommending list for restaurants based on the users' choice of location. This dialog system enables the user to integrate other domains about restaurant booking management and recommendation. The Python based implementation of our toolkit is flexible, modular, user-friendly to use therefore not only for technically experienced users, such as machine learning researchers, but also for less technically experienced users, such as linguists or cognitive scientists, thereby providing a flexible platform for collaborative research can easily extend the present capabilities of Biryani.
+Biryani is an extension of Adviser2.0, therefore we use all the services, Handcrafted NLU, BST, NLG and Policy API.
 
-Installation
+Running the code
+================
+In order to call Biryani from Adviser2.0, the following code can be used:
+```
+python run_chat.py search
+```
+
+Installation (Biryani)
 ============
 
 Note: Adviser 2.0 is currently only tested on Linux and Mac (for M1 chips see the extra section near the bottom of this file).
 (Windows is possible using WSL2 or check the instructions at the bottom for an experimental Windows setup)
+
 
 Downloading the code
 --------------------
@@ -31,11 +40,11 @@ If ``Git`` is installed on your machine, you may instead clone the repository by
 
 .. code-block:: bash
 
-    git clone https://github.com/DigitalPhonetics/adviser.git
+    git clone https://github.tik.uni-stuttgart.de/TusharDhyani/Biryani/git
+    
 
-System Library Requirements
+System Library Requirements of Adviser2.0 (Optional if Adviser is not installed.)
 ---------------------------
-
 * If you want to use speech in-/output, please make sure you have the `hdf5`, `portaudio` and `sndfile` libraries installed.
 * If you want to make use of the function ``services.service.Service.draw_system_graph``,
 you will need to install the ``graphviz`` library via your system's package manager.
