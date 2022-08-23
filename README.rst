@@ -23,14 +23,14 @@ python run_chat.py search
 Installation (Biryani)
 ============
 
-Note: Adviser 2.0 is currently only tested on Linux and Mac (for M1 chips see the extra section near the bottom of this file).
+Note: Biryani (Adviser 2.0) is currently only tested on Linux and Mac (for M1 chips see the extra section near the bottom of this file).
 (Windows is possible using WSL2 or check the instructions at the bottom for an experimental Windows setup)
 
 
 Downloading the code
 --------------------
 
-If ``Git`` is not installated on your machine, just download the Adviser 2.0 file available in ``relases`` section. Then unzip and navigate to the main folder.
+If ``Git`` is not installated on your machine, just download the Biryani (Adviser 2.0) file available in ``relases`` section. Then unzip and navigate to the main folder.
 Note that this method has some disadvantages (you'll only be able to run basic text-to-text terminal conversations).
 
 Cloning the repository (recommended)
