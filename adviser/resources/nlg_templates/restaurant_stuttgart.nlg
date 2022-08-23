@@ -1,0 +1,56 @@
+# ---------------NEW RULES - BIRYANI MESSAGES-------------------------
+
+template welcomemsg(): "Welcome to the BIRYANI chat bot. How may I help you?"
+template welcomemsg(help): "I apologize for the inconvenience I caused. Would you be so kind and let me know again what you are looking for?"
+template welcomemsg(more) : "Thank you for using this system. Is there anything else I can help you with?"
+template bad() : "As much as I would love to help, I am a bit confused; would you be so kind as to let me know again what you are looking for?"
+# repeat() : "My bad! Could you please repeat that?"
+template closingmsg() : "Goodbye and thank you for using this system. Have a wonderful day!"
+
+#--------------System Requests---------------#
+# cuisine, capacity, city, hours, menu, name, rating
+
+# template request(rating): "Should I show you specific rating Resturants?"
+
+
+# --------- Helper Functions -------- #
+
+function on(day)
+	"on {day}"
+	if day = "today": "today"
+	if day = "tomorrow": "tomorrow"
+
+function either_or(boolean, if_true, if_false)
+	if boolean = "true": "{if_true}"
+	if boolean = "false": "{if_false}"
+
+function full_meal_type(short_meal_type)
+	if short_meal_type = "starter": "a starter"
+	if short_meal_type = "buffet": "from the buffet"
+	if short_meal_type = "main_dish": "a main dish"
+	if short_meal_type = "side_dish": "a side dish"
+	if short_meal_type = "drink": "a drink"
+
+# ----------- RULES --------------- #
+
+function info(slot, value)
+	if slot = "name": "is called {value}"
+	if slot = "price": "costs {value}"
+	if slot = "allergens": "has the allergens [{value}]"
+	if slot = "day": "is served {on(value)}"
+	if slot = "type": "is {full_meal_type(value)}"
+	if slot = "vegan": "{either_or(value, "is", "isn't")} vegan"
+	if slot = "vegetarian": "{either_or(value, "is", "isn't")} vegetarian"
+	if slot = "fish": "{either_or(value, "contains", "doesn't contain")} fish"
+	if slot = "pork": "{either_or(value, "contains", "doesn't contain")} pork"
+
+# ----------- System Requests ------------ #
+# System Requestable Keywords:
+	# 2 department
+	# 7 position
+
+template request(cuisine): "Excuse me, what is the specility of this?"
+template request(name): "Excuse me, how is this resturant called?"
+template request(city): "Excuse me, let me know about the resturants in?"
+template request(rating): "Excuse me, what is the feedback of this resturant?"
+

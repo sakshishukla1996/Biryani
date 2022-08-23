@@ -1,0 +1,5 @@
+{
+    "cuisine": "(\\b|^| )(indian|turkish|mexican|italian|chinese|german|greek|vietnamese|thai)(\\b|$| )",
+    "location": "(\\b|^| )(stuttgart|ludwigsburg)(\\b|$| )",
+    "restaurants": "(\\b|^| )(no|yes)(\\b|$| )"
+}
